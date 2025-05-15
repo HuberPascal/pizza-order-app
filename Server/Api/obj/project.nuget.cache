@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "W+HvQSvMaus=",
+  "success": true,
+  "projectFilePath": "/Users/pascalhuber/Dokumente/Dev/pizza-order-app/Server/Api/Api.csproj",
+  "expectedPackageFiles": [
+    "/Users/pascalhuber/.nuget/packages/microsoft.aspnetcore.openapi/9.0.1/microsoft.aspnetcore.openapi.9.0.1.nupkg.sha512",
+    "/Users/pascalhuber/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
