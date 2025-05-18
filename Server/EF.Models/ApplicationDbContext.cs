@@ -30,5 +30,17 @@ public class ApplicationDbContext : DbContext
             .WithOne(oi => oi.Order)
             .HasForeignKey(oi => oi.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<Pizza>()
+            .Property(p => p.Price)
+            .HasPrecision(10, 2);
+
+        modelBuilder.Entity<OrderItem>()
+            .Property(oi => oi.Price)
+            .HasPrecision(10, 2);
+
+        modelBuilder.Entity<Order>()
+            .Property(o => o.TotalPrice)
+            .HasPrecision(10, 2);
     }
 }

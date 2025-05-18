@@ -1,0 +1,8 @@
+Server/Api/appsettings.Development.json
+Server/Api/bin/
+Server/Api/obj/Debug/net9.0/Api.AssemblyInfoInputs.cache
+Server/Api/obj/Debug/net9.0/Api.dll
+Server/Api/obj/Debug/net9.0/refint/Api.dll
+**/appsettings.Development.json
+**/bin/
+**/obj/
