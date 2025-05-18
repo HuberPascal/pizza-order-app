@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF.Migrations", "EF.Migrati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF.Models", "EF.Models\EF.Models.csproj", "{EFB65ABE-5747-42D2-AEAF-9ECBB9F39BCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{8DCA2A48-BCE2-486A-83AF-2119F41F51E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{EFB65ABE-5747-42D2-AEAF-9ECBB9F39BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFB65ABE-5747-42D2-AEAF-9ECBB9F39BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFB65ABE-5747-42D2-AEAF-9ECBB9F39BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DCA2A48-BCE2-486A-83AF-2119F41F51E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DCA2A48-BCE2-486A-83AF-2119F41F51E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DCA2A48-BCE2-486A-83AF-2119F41F51E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DCA2A48-BCE2-486A-83AF-2119F41F51E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
