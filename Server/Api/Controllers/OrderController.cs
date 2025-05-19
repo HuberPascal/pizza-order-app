@@ -14,8 +14,15 @@ public class OrderController(
     : ControllerBase
 {
     [HttpGet]
-    public async Task<OrderDto> Get(Guid employeeId, CancellationToken cancel)
+    public async Task<IEnumerable<OrderDto>> Get(Guid employeeId, CancellationToken cancel)
     {
-        return await orderService.GetAsync(employeeId, cancel);
+        return await orderService.GetAllAsync(employeeId, cancel);
     }
+
+    [HttpGet]
+    public async Task<OrderDto> GetById(Guid orderId, CancellationToken cancel)
+    {
+        return await orderService.GetOrderAsync(orderId, cancel);
+    }
+    
 }

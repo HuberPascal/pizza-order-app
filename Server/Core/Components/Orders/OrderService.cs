@@ -17,11 +17,19 @@ public class OrderService(
     IApplicationDbContext context
     ) : IOrderService
 {
-    public async Task<OrderDto> GetAsync(Guid employeeId, CancellationToken cancel)
+    public async Task<IEnumerable<OrderDto>> GetAllAsync(Guid employeeId, CancellationToken cancel)
     {
         var order = await context.Orders
-            .Where(o => o.Id == employeeId)
-            .FirstOrDefaultAsync(cancel);
+            .Where(o => o.UserId == employeeId)
+            .ToListAsync(cancel);
+        
+        return mapper.Map<IEnumerable<OrderDto>>(order);
+    }
+
+    public async Task<OrderDto> GetOrderAsync(Guid orderId, CancellationToken cancel)
+    {
+        var order = await context.Orders
+            .FirstOrDefaultAsync(o => o.Id == orderId, cancel); 
         
         return mapper.Map<OrderDto>(order);
     }
