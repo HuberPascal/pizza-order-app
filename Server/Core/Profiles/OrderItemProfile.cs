@@ -14,7 +14,7 @@ public class OrderItemProfile : Profile
                 .MapFrom(src => src.OrderId))
             .ForMember(dest => dest.Quantity, opt => opt
                 .MapFrom(src => src.Quantity))
-            .ForMember(dest => dest.Price, opt => opt
-                .MapFrom(src => src.Price));
+            .ForMember(dest => dest.UnitPrice, opt => opt
+                .MapFrom(src => src.UnitPrice));
     }
 }

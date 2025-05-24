@@ -10,7 +10,7 @@ public class OrderProfile : Profile
     public OrderProfile()
     {
         CreateMap<Order, OrderDto>()
-            .ForMember(dest => dest.Status, opt => opt
-                .MapFrom(src => src.Status));
+            .ForMember(dest => dest.OrderStatus, opt => opt
+                .MapFrom(src => src.OrderStatus));
     }
 }
