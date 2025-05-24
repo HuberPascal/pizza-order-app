@@ -14,6 +14,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
     public DbSet<Pizza> Pizzas { get; set; }
+    public DbSet<ExtraTopping> ExtraToppings { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -31,16 +32,33 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             .HasForeignKey(oi => oi.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
         
+        modelBuilder.Entity<OrderItem>()
+            .HasMany(oi => oi.ExtraToppings)
+            .WithMany(et => et.OrderItems);
+        
         modelBuilder.Entity<Pizza>()
             .Property(p => p.Price)
             .HasPrecision(10, 2);
 
         modelBuilder.Entity<OrderItem>()
-            .Property(oi => oi.Price)
+            .Property(oi => oi.UnitPrice)
             .HasPrecision(10, 2);
 
         modelBuilder.Entity<Order>()
             .Property(o => o.TotalPrice)
             .HasPrecision(10, 2);
+        
+        modelBuilder.Entity<OrderItem>()
+            .Property(oi => oi.SpecialInstructions)
+            .HasMaxLength(500);
+        
+        modelBuilder.Entity<ExtraTopping>()
+            .Property(et => et.Name)
+            .HasMaxLength(100)
+            .IsRequired();
+        
+        modelBuilder.Entity<ExtraTopping>()
+            .Property(et => et.Description)
+            .HasMaxLength(500);
     }
 }
