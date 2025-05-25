@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF.Migrations.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250518115526_Add_Pizza_App_Base_Schema")]
+    [Migration("20250525163846_Add_Pizza_App_Base_Schema")]
     partial class Add_Pizza_App_Base_Schema
     {
         /// <inheritdoc />
@@ -25,6 +25,42 @@ namespace EF.Migrations.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("EF.Models.Models.ExtraTopping", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsVegan")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsVegetarian")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExtraToppings");
+                });
+
             modelBuilder.Entity("EF.Models.Models.Order", b =>
                 {
                     b.Property<Guid>("Id")
@@ -34,9 +70,36 @@ namespace EF.Migrations.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("CustomerEmail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerNotes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerPhone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeliveryAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EstimatedDeliveryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("OrderStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PaymentMethod")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TotalPrice")
                         .HasPrecision(10, 2)
@@ -67,16 +130,22 @@ namespace EF.Migrations.Migrations
                     b.Property<Guid>("PizzaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Price")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
+
+                    b.Property<string>("SpecialInstructions")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("PizzaId");
 
                     b.ToTable("OrderItems");
                 });
@@ -87,13 +156,24 @@ namespace EF.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Ingredients")
-                        .IsRequired()
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsVegan")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsVegetarian")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -135,6 +215,21 @@ namespace EF.Migrations.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ExtraToppingOrderItem", b =>
+                {
+                    b.Property<Guid>("ExtraToppingsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrderItemsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ExtraToppingsId", "OrderItemsId");
+
+                    b.HasIndex("OrderItemsId");
+
+                    b.ToTable("ExtraToppingOrderItem");
+                });
+
             modelBuilder.Entity("EF.Models.Models.Order", b =>
                 {
                     b.HasOne("EF.Models.Models.User", "User")
@@ -154,10 +249,38 @@ namespace EF.Migrations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EF.Models.Models.Pizza", "Pizza")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("PizzaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Order");
+
+                    b.Navigation("Pizza");
+                });
+
+            modelBuilder.Entity("ExtraToppingOrderItem", b =>
+                {
+                    b.HasOne("EF.Models.Models.ExtraTopping", null)
+                        .WithMany()
+                        .HasForeignKey("ExtraToppingsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EF.Models.Models.OrderItem", null)
+                        .WithMany()
+                        .HasForeignKey("OrderItemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EF.Models.Models.Order", b =>
+                {
+                    b.Navigation("OrderItems");
+                });
+
+            modelBuilder.Entity("EF.Models.Models.Pizza", b =>
                 {
                     b.Navigation("OrderItems");
                 });
