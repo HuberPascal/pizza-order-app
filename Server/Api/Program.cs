@@ -1,6 +1,7 @@
 using EF.Models;
 using Microsoft.EntityFrameworkCore;
 using Core.Profiles;
+using Core.Components.Orders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IApplicationDbContext>(provider =>
     provider.GetRequiredService<ApplicationDbContext>());
+
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
 

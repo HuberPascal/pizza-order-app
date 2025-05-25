@@ -15,7 +15,7 @@ public class OrderItem
     public string? SpecialInstructions { get; set; }
     
     // Calculated Property
-    public decimal TotalPrice => (UnitPrice + ExtraToppings.Sum(t => t.Price)) * Quantity;
+    public decimal TotalPrice { get; set; }
     
     // Navigation Properties
     public virtual Order Order { get; set; }

@@ -1,4 +1,3 @@
-using System;
 
 namespace EF.Models.Models;
 

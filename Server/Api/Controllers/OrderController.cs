@@ -24,5 +24,12 @@ public class OrderController(
     {
         return await orderService.GetOrderAsync(orderId, cancel);
     }
-    
+
+    [HttpPost]
+    public async Task<ActionResult<OrderDto>> CreateOrder([FromBody] CreateOrderRequest request, CancellationToken cancel)
+    {
+        var orderDto = await orderService.CreateOrderAsync(request, cancel);
+
+        return Ok(orderDto);
+    }
 }
