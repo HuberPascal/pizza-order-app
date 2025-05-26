@@ -32,4 +32,15 @@ public class OrderController(
 
         return Ok(orderDto);
     }
+
+    [HttpPut("{orderId}/cancel")]
+    public async Task<IActionResult> CancelOrder(Guid orderId, CancellationToken cancel)
+    {
+        var success = await orderService.CancelOrderAsync(orderId, cancel);
+        
+        if (!success)
+            return NotFound("Order not found or cannot be cancelled");
+
+        return NoContent();
+    }
 }

@@ -80,4 +80,27 @@ public class OrderService(
         
         return mapper.Map<OrderDto>(order);
     }
+
+    public async Task<bool> CancelOrderAsync(Guid orderId, CancellationToken cancel)
+    {
+        var order = await context.Orders
+            .FirstOrDefaultAsync(o => o.Id == orderId, cancel);
+
+        if (order == null)
+            return false;
+
+        if (order.OrderStatus == OrderStatus.Delivered ||
+            order.OrderStatus == OrderStatus.Cancelled)
+            return false;
+
+        if (order.OrderStatus != OrderStatus.Received &&
+            order.OrderStatus != OrderStatus.Confirmed)
+            return false;
+
+        order.OrderStatus = OrderStatus.Cancelled;
+        order.UpdatedAt = DateTime.UtcNow;
+
+        await context.SaveChangesAsync(cancel);
+        return true;
+    }
 }
