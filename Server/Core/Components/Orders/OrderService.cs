@@ -1,14 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using EF.Models;
 using EF.Models.Models;
 using Core.Transports.Orders;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using Core.Profiles;
+using EF.Models.Enums;
 
 namespace Core.Components.Orders;
 
@@ -30,6 +25,58 @@ public class OrderService(
     {
         var order = await context.Orders
             .FirstOrDefaultAsync(o => o.Id == orderId, cancel); 
+        
+        return mapper.Map<OrderDto>(order);
+    }
+
+    public async Task<OrderDto> CreateOrderAsync(CreateOrderRequest request, CancellationToken cancel)
+    {
+        var order = new Order
+        {
+            Id = Guid.NewGuid(),
+            UserId = request.UserId,
+            CustomerName = request.CustomerName,
+            CustomerEmail = request.CustomerEmail,
+            CustomerPhone = request.CustomerPhone,
+            DeliveryAddress = request.DeliveryAddress,
+            CustomerNotes = request.CustomerNotes,
+            PaymentMethod = request.PaymentMethod,
+            OrderStatus = OrderStatus.Received,
+            CreatedAt = DateTime.UtcNow,
+            TotalPrice = 0,
+            IsPaid = false,
+            EstimatedDeliveryTime = DateTime.UtcNow.AddMinutes(30),
+            OrderItems = new List<OrderItem>()
+        };
+
+        foreach (var itemRequest in request.OrderItems)
+        {
+            var pizza = await context.Pizzas.FindAsync(itemRequest.PizzaId);
+            var extraToppings = await context.ExtraToppings
+                .Where(et => itemRequest.ExtraToppingIds.Contains(et.Id))
+                .ToListAsync(cancel);
+
+            var orderItem = new OrderItem
+            {
+                Id = Guid.NewGuid(),
+                OrderId = order.Id,
+                PizzaId = pizza.Id,
+                Quantity = itemRequest.Quantity,
+                UnitPrice = pizza.Price,
+                SpecialInstructions = itemRequest.SpecialInstructions,
+                ExtraToppings = extraToppings
+            };
+
+            var extraToppingsPrice = extraToppings.Sum(et => et.Price);
+            orderItem.TotalPrice = (orderItem.UnitPrice + extraToppingsPrice) * orderItem.Quantity;
+            
+            order.OrderItems.Add(orderItem);
+        }
+
+        order.TotalPrice = order.OrderItems.Sum(oi => oi.TotalPrice);
+        
+        await context.Orders.AddAsync(order, cancel);
+        await context.SaveChangesAsync(cancel);
         
         return mapper.Map<OrderDto>(order);
     }
