@@ -103,4 +103,19 @@ public class OrderService(
         await context.SaveChangesAsync(cancel);
         return true;
     }
+
+    public async Task<bool> ChangeOrderStatusAsync(Guid orderId, OrderStatus status, CancellationToken cancel)
+    {
+        var order = await context.Orders
+            .FirstOrDefaultAsync(o => o.Id == orderId, cancel);
+
+        if (order == null)
+            return false;
+        
+        order.OrderStatus = status;
+        order.UpdatedAt = DateTime.UtcNow;
+        
+        await context.SaveChangesAsync(cancel);
+        return true;
+    }
 }

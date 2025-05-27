@@ -3,6 +3,7 @@ using EF.Models;
 using Microsoft.AspNetCore.Mvc;
 using Core.Components.Orders;
 using Core.Transports.Orders;
+using EF.Models.Enums;
 
 namespace Api.Controllers;
 
@@ -41,6 +42,17 @@ public class OrderController(
         if (!success)
             return NotFound("Order not found or cannot be cancelled");
 
+        return NoContent();
+    }
+
+    [HttpPut("{orderId}/status")]
+    public async Task<IActionResult> ChangeOrderStatus(Guid orderId, [FromBody] ChangeOrderStatusRequest request, CancellationToken cancel)
+    {
+        var success = await orderService.ChangeOrderStatusAsync(orderId, request.Status, cancel);
+        
+        if (!success)
+            return NotFound("Order not found");
+        
         return NoContent();
     }
 }
