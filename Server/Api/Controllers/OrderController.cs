@@ -7,10 +7,10 @@ using EF.Models.Enums;
 
 namespace Api.Controllers;
 
+[ApiController]
 [Route("api/[controller]/[action]")]
 
 public class OrderController(
-    ApplicationDbContext context,
     IOrderService orderService)
     : ControllerBase
 {
