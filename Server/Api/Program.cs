@@ -2,6 +2,8 @@ using EF.Models;
 using Microsoft.EntityFrameworkCore;
 using Core.Profiles;
 using Core.Components.Orders;
+using Core.Components.OrderItems;
+using Core.Components.Pizzas;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,8 @@ builder.Services.AddScoped<IApplicationDbContext>(provider =>
     provider.GetRequiredService<ApplicationDbContext>());
 
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderItemService, OrderItemService>();
+builder.Services.AddScoped<IPizzaService, PizzaService>();
 
 var app = builder.Build();
 
