@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF.Migrations.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250525163846_Add_Pizza_App_Base_Schema")]
+    [Migration("20250607142924_Add_Pizza_App_Base_Schema")]
     partial class Add_Pizza_App_Base_Schema
     {
         /// <inheritdoc />
@@ -136,6 +136,9 @@ namespace EF.Migrations.Migrations
                     b.Property<string>("SpecialInstructions")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("UnitPrice")
                         .HasPrecision(10, 2)

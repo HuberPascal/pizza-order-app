@@ -20,5 +20,5 @@ public class OrderItem
     // Navigation Properties
     public virtual Order Order { get; set; }
     public virtual Pizza Pizza { get; set; }
-    public List<ExtraTopping> ExtraToppings { get; set; } = new List<ExtraTopping>();
+    public virtual ICollection<ExtraTopping> ExtraToppings { get; set; } = new List<ExtraTopping>();
 }
