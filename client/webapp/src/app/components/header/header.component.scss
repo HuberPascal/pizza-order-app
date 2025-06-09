@@ -1,8 +1,13 @@
+:host {
+  background-color: white;
+  border-bottom: 1px solid #e5e8eb;
+}
 header {
   display: flex;
   justify-content: space-between;
-  padding: 12px 40px;
-  border-bottom: 1px solid #e5e8eb;
+  padding: 12px 0;
+  max-width: 1280px;
+  margin: 0 auto;
 
   .nav-container {
     display: flex;
