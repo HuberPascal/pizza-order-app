@@ -1,1 +1,40 @@
-<p>pizza-list works!</p>
+<main>
+  <div class="section-header">
+    <h2>Unsere Produkte</h2>
+    <p>Entdecken Sie unsere Auswahl an hochwertigen Angeboten</p>
+  </div>
+
+  <section class="card-list">
+    <mat-card class="item-card" appearance="outlined">
+      <mat-card-content>
+        <div class="card-content-left">
+          <mat-card-title-group>
+            <mat-card-title>Produktname</mat-card-title>
+          </mat-card-title-group>
+          <p>Kurzbeschreibung des Produkts</p>
+          <app-custom-chip items="['Beispiel']"></app-custom-chip>
+        </div>
+        <div class="card-content-right">
+          <span>CHF 18.50</span>
+          <button mat-flat-button>Anpassen & Bestellen</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="item-card" appearance="outlined">
+      <mat-card-content>
+        <div class="card-content-left">
+          <mat-card-title-group>
+            <mat-card-title>Produktname</mat-card-title>
+          </mat-card-title-group>
+          <p>Kurzbeschreibung des Produkts</p>
+          <app-custom-chip items="['Beispiel']"></app-custom-chip>
+        </div>
+        <div class="card-content-right">
+          <span>CHF 18.50</span>
+          <button mat-flat-button>Anpassen & Bestellen</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</main>
