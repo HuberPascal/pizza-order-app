@@ -1,0 +1,50 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 40px;
+  border-bottom: 1px solid #e5e8eb;
+
+  .nav-container {
+    display: flex;
+    align-items: center;
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    nav {
+      display: flex;
+
+      ul {
+        list-style-type: none;
+        display: flex;
+        gap: 16px;
+      }
+    }
+  }
+
+  .right-section {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    .cart-btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      background-color: #f5f0f0;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .avatar {
+      vertical-align: middle;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+}
