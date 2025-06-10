@@ -1,0 +1,14 @@
+.mat-mdc-chip-set .mdc-evolution-chip {
+  margin: 0;
+  margin-right: 8px;
+}
+
+.mat-mdc-standard-chip {
+  height: 20px;
+  pointer-events: none;
+  background-color: #e2e8f0;
+
+  &:not(.mdc-evolution-chip--disabled) {
+    background-color: #e2e8f0;
+  }
+}
