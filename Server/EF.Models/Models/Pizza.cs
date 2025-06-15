@@ -12,6 +12,7 @@ public class Pizza
     public bool IsVegan { get; set; }
     public bool IsAvailable { get; set; } = true;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public string[] BaseIngredients { get; set; }
     
     public virtual ICollection<OrderItem> OrderItems { get; set; }
 }

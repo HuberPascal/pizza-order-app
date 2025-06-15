@@ -42,6 +42,7 @@ public class PizzaService(
             IsVegetarian = pizzaRequest.IsVegetarian,
             IsVegan = pizzaRequest.IsVegan,
             IsAvailable = pizzaRequest.IsAvailable,
+            BaseIngredients = pizzaRequest.BaseIngredients,
         };
             
         await context.Pizzas.AddAsync(pizza, cancel);
@@ -65,6 +66,7 @@ public class PizzaService(
         pizza.IsVegetarian = pizzaRequest.IsVegetarian;
         pizza.IsVegan = pizzaRequest.IsVegan;
         pizza.IsAvailable = pizzaRequest.IsAvailable;
+        pizza.BaseIngredients = pizzaRequest.BaseIngredients;
         
         await context.SaveChangesAsync(cancel);
 

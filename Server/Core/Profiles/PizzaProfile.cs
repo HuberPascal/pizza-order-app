@@ -27,6 +27,8 @@ public class PizzaProfile : Profile
             .ForMember(dest => dest.IsVegan, opt => opt
                 .MapFrom(src => src.IsVegan))
             .ForMember(dest => dest.IsAvailable, opt => opt
-                .MapFrom(src => src.IsAvailable));
+                .MapFrom(src => src.IsAvailable))
+            .ForMember(dest => dest.BaseIngredients, opt => opt
+                .MapFrom(src => src.BaseIngredients));
     }
 }

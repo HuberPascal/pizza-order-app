@@ -10,4 +10,5 @@ public class PizzaDto
     public bool IsVegetarian { get; set; }
     public bool IsVegan { get; set; }
     public bool IsAvailable { get; set; } = true;
+    public string[] BaseIngredients { get; set; }
 }
