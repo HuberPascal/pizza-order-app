@@ -1,0 +1,15 @@
+@if (categories.length > 0) {
+<div class="category-container">
+  <div class="category-toggle-group">
+    @for (category of categories; track category) {
+    <button
+      (click)="setSelectedCategory(category)"
+      class="category-button"
+      [class.active]="selectedCategory() === category"
+    >
+      {{ category }}
+    </button>
+    }
+  </div>
+</div>
+}

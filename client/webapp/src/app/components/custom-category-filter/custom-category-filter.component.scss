@@ -1,0 +1,38 @@
+.category-container {
+  margin-bottom: 48px;
+  display: flex;
+  justify-content: center;
+
+  .category-toggle-group {
+    display: inline-flex;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4px);
+    border: 1px solid #cbd5e1;
+    border-radius: 9999px;
+    padding: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .category-button {
+    padding: 8px 24px;
+    font-size: 20px;
+    font-weight: 500;
+    border: none;
+    border-radius: 9999px;
+    background: none;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .category-button:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #0f172a;
+  }
+
+  .category-button.active {
+    background: linear-gradient(to right, #f97316, #ef4444);
+    color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+}
