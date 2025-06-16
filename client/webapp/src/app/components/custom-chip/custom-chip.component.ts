@@ -8,5 +8,5 @@ import { MatChipsModule } from '@angular/material/chips';
   styleUrl: './custom-chip.component.scss',
 })
 export class CustomChipComponent {
-  items = input.required<string>(); // Array
+  label = input.required<string>();
 }

@@ -1,25 +1,28 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { CustomCategoryFilterComponent } from '../custom-category-filter/custom-category-filter.component';
-import { CustomChipComponent } from '../custom-chip/custom-chip.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatCardModule } from '@angular/material/card';
-import { MatChipsModule } from '@angular/material/chips';
+import { PizzaCardComponent } from '../pizza-card/pizza-card.component';
+import { PizzaStore } from '../../stores/pizza.store';
 
 @Component({
   selector: 'app-pizza-list',
-  imports: [
-    CustomCategoryFilterComponent,
-    CustomChipComponent,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatChipsModule,
-  ],
+  imports: [CustomCategoryFilterComponent, PizzaCardComponent],
   templateUrl: './pizza-list.component.html',
   styleUrl: './pizza-list.component.scss',
 })
-export class PizzaListComponent {
+export class PizzaListComponent implements OnInit {
+  readonly store = inject(PizzaStore);
+
+  ngOnInit() {
+    this.store.loadAllPizzas();
+  }
+
   @Input() options: { label: string; value: any }[] = [
     { label: 'alle', value: 1 },
     { label: 'pizzas', value: 2 },

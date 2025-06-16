@@ -1,1 +1,19 @@
-<p>pizza-card works!</p>
+@for (pizza of items(); track pizza.id) {
+<mat-card class="item-card" appearance="outlined">
+  <mat-card-content>
+    <div class="card-content-left">
+      <mat-card-title-group>
+        <mat-card-title>{{ pizza.name }}</mat-card-title>
+      </mat-card-title-group>
+      <p>{{ pizza.description }}</p>
+      @for (ingredient of pizza.baseIngredients ?? []; track ingredient) {
+      <app-custom-chip [label]="ingredient"></app-custom-chip>
+      }
+    </div>
+    <div class="card-content-right">
+      <span>CHF {{ pizza.price }}</span>
+      <button mat-flat-button>Anpassen & Bestellen</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+}

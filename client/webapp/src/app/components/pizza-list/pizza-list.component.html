@@ -10,36 +10,6 @@
   <app-custom-category-filter></app-custom-category-filter>
 
   <section class="card-list">
-    <mat-card class="item-card" appearance="outlined">
-      <mat-card-content>
-        <div class="card-content-left">
-          <mat-card-title-group>
-            <mat-card-title>Produktname</mat-card-title>
-          </mat-card-title-group>
-          <p>Kurzbeschreibung des Produkts</p>
-          <app-custom-chip items="['Beispiel']"></app-custom-chip>
-        </div>
-        <div class="card-content-right">
-          <span>CHF 18.50</span>
-          <button mat-flat-button>Anpassen & Bestellen</button>
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="item-card" appearance="outlined">
-      <mat-card-content>
-        <div class="card-content-left">
-          <mat-card-title-group>
-            <mat-card-title>Produktname</mat-card-title>
-          </mat-card-title-group>
-          <p>Kurzbeschreibung des Produkts</p>
-          <app-custom-chip items="['Beispiel']"></app-custom-chip>
-        </div>
-        <div class="card-content-right">
-          <span>CHF 18.50</span>
-          <button mat-flat-button>Anpassen & Bestellen</button>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    <app-pizza-card [items]="store.pizzas()"></app-pizza-card>
   </section>
 </main>
