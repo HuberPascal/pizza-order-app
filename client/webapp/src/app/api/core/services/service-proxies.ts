@@ -16,7 +16,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 @Injectable()
-export class PizzaApiClient {
+export class OrderClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -200,6 +200,18 @@ export class PizzaApiClient {
         }
         return _observableOf(null as any);
     }
+}
+
+@Injectable()
+export class CancelOrderClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
+    }
 
     /**
      * @return OK
@@ -249,6 +261,18 @@ export class PizzaApiClient {
             }));
         }
         return _observableOf(null as any);
+    }
+}
+
+@Injectable()
+export class ChangeOrderStatusClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
     }
 
     /**
@@ -304,6 +328,18 @@ export class PizzaApiClient {
             }));
         }
         return _observableOf(null as any);
+    }
+}
+
+@Injectable()
+export class PizzaClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
     }
 
     /**
@@ -368,7 +404,7 @@ export class PizzaApiClient {
      * @param id (optional) 
      * @return OK
      */
-    getById2(id: string | undefined): Observable<PizzaDto> {
+    getById(id: string | undefined): Observable<PizzaDto> {
         let url_ = this.baseUrl + "/api/Pizza/GetById?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
@@ -385,11 +421,11 @@ export class PizzaApiClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetById2(response_);
+            return this.processGetById(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetById2(response_ as any);
+                    return this.processGetById(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<PizzaDto>;
                 }
@@ -398,7 +434,7 @@ export class PizzaApiClient {
         }));
     }
 
-    protected processGetById2(response: HttpResponseBase): Observable<PizzaDto> {
+    protected processGetById(response: HttpResponseBase): Observable<PizzaDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -821,6 +857,7 @@ export class PizzaDto implements IPizzaDto {
     isVegetarian?: boolean;
     isVegan?: boolean;
     isAvailable?: boolean;
+    baseIngredients?: string[] | undefined;
 
     constructor(data?: IPizzaDto) {
         if (data) {
@@ -841,6 +878,11 @@ export class PizzaDto implements IPizzaDto {
             this.isVegetarian = _data["isVegetarian"];
             this.isVegan = _data["isVegan"];
             this.isAvailable = _data["isAvailable"];
+            if (Array.isArray(_data["baseIngredients"])) {
+                this.baseIngredients = [] as any;
+                for (let item of _data["baseIngredients"])
+                    this.baseIngredients!.push(item);
+            }
         }
     }
 
@@ -861,6 +903,11 @@ export class PizzaDto implements IPizzaDto {
         data["isVegetarian"] = this.isVegetarian;
         data["isVegan"] = this.isVegan;
         data["isAvailable"] = this.isAvailable;
+        if (Array.isArray(this.baseIngredients)) {
+            data["baseIngredients"] = [];
+            for (let item of this.baseIngredients)
+                data["baseIngredients"].push(item);
+        }
         return data;
     }
 }
@@ -874,6 +921,7 @@ export interface IPizzaDto {
     isVegetarian?: boolean;
     isVegan?: boolean;
     isAvailable?: boolean;
+    baseIngredients?: string[] | undefined;
 }
 
 export class PizzaRequest implements IPizzaRequest {
@@ -884,6 +932,7 @@ export class PizzaRequest implements IPizzaRequest {
     isVegetarian?: boolean;
     isVegan?: boolean;
     isAvailable?: boolean;
+    baseIngredients?: string[] | undefined;
 
     constructor(data?: IPizzaRequest) {
         if (data) {
@@ -903,6 +952,11 @@ export class PizzaRequest implements IPizzaRequest {
             this.isVegetarian = _data["isVegetarian"];
             this.isVegan = _data["isVegan"];
             this.isAvailable = _data["isAvailable"];
+            if (Array.isArray(_data["baseIngredients"])) {
+                this.baseIngredients = [] as any;
+                for (let item of _data["baseIngredients"])
+                    this.baseIngredients!.push(item);
+            }
         }
     }
 
@@ -922,6 +976,11 @@ export class PizzaRequest implements IPizzaRequest {
         data["isVegetarian"] = this.isVegetarian;
         data["isVegan"] = this.isVegan;
         data["isAvailable"] = this.isAvailable;
+        if (Array.isArray(this.baseIngredients)) {
+            data["baseIngredients"] = [];
+            for (let item of this.baseIngredients)
+                data["baseIngredients"].push(item);
+        }
         return data;
     }
 }
@@ -934,6 +993,7 @@ export interface IPizzaRequest {
     isVegetarian?: boolean;
     isVegan?: boolean;
     isAvailable?: boolean;
+    baseIngredients?: string[] | undefined;
 }
 
 export class SwaggerException extends Error {
