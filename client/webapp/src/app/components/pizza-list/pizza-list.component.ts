@@ -6,6 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CustomCategoryFilterComponent } from '../custom-category-filter/custom-category-filter.component';
 import { PizzaCardComponent } from '../pizza-card/pizza-card.component';
 import { PizzaStore } from '../../stores/pizza.store';

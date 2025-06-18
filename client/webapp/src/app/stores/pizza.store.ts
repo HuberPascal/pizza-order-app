@@ -12,7 +12,7 @@ const initialState: PizzaState = {
   pizzas: [],
   loading: false,
   error: null,
-}
+};
 
 export const PizzaStore = signalStore(
   { providedIn: 'root' },
