@@ -10,6 +10,9 @@
   <app-custom-category-filter></app-custom-category-filter>
 
   <section class="card-list">
-    <app-pizza-card [items]="store.pizzas()"></app-pizza-card>
+    <app-pizza-card
+      [items]="store.pizzas()"
+      (openPizzaOrderDialog)="openDialog()"
+    ></app-pizza-card>
   </section>
 </main>

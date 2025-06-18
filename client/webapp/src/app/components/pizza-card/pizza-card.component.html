@@ -11,8 +11,10 @@
       }
     </div>
     <div class="card-content-right">
-      <span>CHF {{ pizza.price }}</span>
-      <button mat-flat-button>Anpassen & Bestellen</button>
+      <span>{{ pizza.price | currency : "CHF " }}</span>
+      <button (click)="onOrderClick(pizza)" mat-flat-button>
+        Anpassen & Bestellen
+      </button>
     </div>
   </mat-card-content>
 </mat-card>
