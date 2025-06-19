@@ -1,3 +1,4 @@
+using Core.Components.ExtraToppings;
 using EF.Models;
 using Microsoft.EntityFrameworkCore;
 using Core.Profiles;
@@ -38,6 +39,7 @@ builder.Services.AddScoped<IApplicationDbContext>(provider =>
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderItemService, OrderItemService>();
 builder.Services.AddScoped<IPizzaService, PizzaService>();
+builder.Services.AddScoped<IExtraToppingService, ExtraToppingService>();
 
 var app = builder.Build();
 

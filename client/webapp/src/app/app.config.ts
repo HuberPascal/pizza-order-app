@@ -15,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     PizzaClient,
+    ExtraToppingClient,
     { provide: API_BASE_URL, useValue: 'http://localhost:5162' },
   ],
 };

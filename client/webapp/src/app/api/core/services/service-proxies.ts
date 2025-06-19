@@ -16,6 +16,76 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 @Injectable()
+export class ExtraToppingClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
+    }
+
+    /**
+     * @return OK
+     */
+    getAll(): Observable<ExtraToppingDto[]> {
+        let url_ = this.baseUrl + "/api/ExtraTopping/GetAll";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ExtraToppingDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ExtraToppingDto[]>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<ExtraToppingDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ExtraToppingDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class OrderClient {
     private http: HttpClient;
     private baseUrl: string;
@@ -788,6 +858,66 @@ export interface ICreateOrderRequest {
     customerNotes?: string | undefined;
     paymentMethod?: PaymentMethod;
     orderItems?: CreateOrderItemRequest[] | undefined;
+}
+
+export class ExtraToppingDto implements IExtraToppingDto {
+    id?: string;
+    name?: string | undefined;
+    description?: string | undefined;
+    price?: number;
+    isVegetarian?: boolean;
+    isVegan?: boolean;
+    isAvailable?: boolean;
+
+    constructor(data?: IExtraToppingDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.description = _data["description"];
+            this.price = _data["price"];
+            this.isVegetarian = _data["isVegetarian"];
+            this.isVegan = _data["isVegan"];
+            this.isAvailable = _data["isAvailable"];
+        }
+    }
+
+    static fromJS(data: any): ExtraToppingDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ExtraToppingDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["description"] = this.description;
+        data["price"] = this.price;
+        data["isVegetarian"] = this.isVegetarian;
+        data["isVegan"] = this.isVegan;
+        data["isAvailable"] = this.isAvailable;
+        return data;
+    }
+}
+
+export interface IExtraToppingDto {
+    id?: string;
+    name?: string | undefined;
+    description?: string | undefined;
+    price?: number;
+    isVegetarian?: boolean;
+    isVegan?: boolean;
+    isAvailable?: boolean;
 }
 
 export class OrderDto implements IOrderDto {
