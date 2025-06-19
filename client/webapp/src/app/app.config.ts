@@ -3,7 +3,11 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
-import { API_BASE_URL, PizzaClient } from './api/core/services/service-proxies';
+import {
+  API_BASE_URL,
+  ExtraToppingClient,
+  PizzaClient,
+} from './api/core/services/service-proxies';
 
 export const appConfig: ApplicationConfig = {
   providers: [
