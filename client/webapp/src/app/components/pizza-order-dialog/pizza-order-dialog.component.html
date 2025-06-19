@@ -1,20 +1,35 @@
 <mat-card class="example-card" appearance="outlined">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Shiba Inu</mat-card-title>
-    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    <mat-card-title>{{ data.pizza.name }} anpassen</mat-card-title>
+    <mat-card-subtitle
+      >Wählen Sie zusätzliche Beläge für Ihre Pizza</mat-card-subtitle
+    >
   </mat-card-header>
-  <img
-    mat-card-image
-    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-    alt="Photo of a Shiba Inu"
-  />
   <mat-card-content>
+    <h4>{{ data.pizza.name }}</h4>
     <p>
-      The Shiba Inu is the smallest of the six original and distinct spitz
-      breeds of dog from Japan. A small, agile dog that copes very well with
-      mountainous terrain, the Shiba Inu was originally bred for hunting.
+      {{ data.pizza.description }}
     </p>
+    @for (ingredient of data.pizza.baseIngredients ?? []; track ingredient) {
+    <app-custom-chip [label]="ingredient"></app-custom-chip>
+    }
+    <p>Grundpreis: {{ data.pizza.price | currency : "CHF " }}</p>
+    <mat-divider></mat-divider>
+    <form [formGroup]="form">
+      <h5>Zusätzliche Beläge:</h5>
+      <div>
+        @for (topping of extraToppings(); track topping.id) {
+        <mat-card appearance="outlined">
+          <div>
+            <p>
+              <mat-checkbox>{{ topping.name }}</mat-checkbox>
+            </p>
+          </div>
+        </mat-card>
+        }
+      </div>
+    </form>
   </mat-card-content>
   <mat-card-actions>
     <button mat-button>LIKE</button>

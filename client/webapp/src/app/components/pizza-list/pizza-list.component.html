@@ -12,7 +12,7 @@
   <section class="card-list">
     <app-pizza-card
       [items]="store.pizzas()"
-      (openPizzaOrderDialog)="openDialog()"
+      (openPizzaOrderDialog)="openDialog($event)"
     ></app-pizza-card>
   </section>
 </main>
