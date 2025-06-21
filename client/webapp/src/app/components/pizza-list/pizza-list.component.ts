@@ -45,6 +45,7 @@ export class PizzaListComponent implements OnInit {
       },
       maxWidth: '450px',
       width: '90vw',
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
