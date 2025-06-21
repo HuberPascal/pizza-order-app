@@ -1,0 +1,114 @@
+.mat-mdc-card {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  //   max-width: 450px !important;
+  //   width: 100% !important;
+
+  .mat-mdc-card-title {
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .mat-mdc-card-subtitle {
+    font-size: 16px;
+    color: #475569;
+    margin-top: 6px;
+  }
+
+  .mat-mdc-card-content {
+    h4 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .description-text {
+      font-size: 18px;
+      color: #475569;
+      margin: 0;
+      margin-top: 4px;
+    }
+
+    .custom-chip-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(max-content, 1fr));
+      gap: 8px;
+      align-items: center;
+      margin: 12px 0;
+
+      app-custom-chip {
+        display: block; // Forciert Block-Layout
+      }
+    }
+  }
+}
+
+.toppings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 240px;
+  overflow-y: auto;
+  margin-bottom: 24px;
+
+  .mat-mdc-card {
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: #475569;
+  }
+}
+
+.price-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+
+  span:nth-child(1) {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  span:nth-child(2) {
+    font-size: 24px;
+    font-weight: 700;
+  }
+}
+
+.button-container {
+  display: flex;
+  gap: 12px;
+
+  .cancel-btn {
+    font-size: 16px;
+    padding: 12px 32px;
+    background: #ffffff;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    width: 100%;
+
+    &:hover {
+      background: #f8fafc;
+    }
+  }
+
+  .submit-btn {
+    font-size: 16px;
+    padding: 12px 32px;
+    background: linear-gradient(to right, #f97316, #ef4444);
+    color: white;
+    width: 100%;
+
+    &:hover {
+      background: linear-gradient(to right, #ea580c, #dc2626);
+    }
+  }
+}
+
+.mat-divider {
+  border-top-color: #e1e8f0;
+}
