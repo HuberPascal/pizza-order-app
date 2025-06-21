@@ -43,6 +43,8 @@ export class PizzaListComponent implements OnInit {
         pizza: pizza,
         extraToppings: this.extraToppingsStore.extraToppings(),
       },
+      maxWidth: '450px',
+      width: '90vw',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

@@ -6,9 +6,11 @@
         <mat-card-title>{{ pizza.name }}</mat-card-title>
       </mat-card-title-group>
       <p>{{ pizza.description }}</p>
-      @for (ingredient of pizza.baseIngredients ?? []; track ingredient) {
-      <app-custom-chip [label]="ingredient"></app-custom-chip>
-      }
+      <mat-chip-set class="ingredients-chips">
+        @for (ingredient of pizza.baseIngredients ?? []; track ingredient) {
+        <app-custom-chip [label]="ingredient"></app-custom-chip>
+        }
+      </mat-chip-set>
     </div>
     <div class="card-content-right">
       <span>{{ pizza.price | currency : "CHF " }}</span>

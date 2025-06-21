@@ -4,7 +4,6 @@ import {
   computed,
   inject,
   effect,
-  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomChipComponent } from '../custom-chip/custom-chip.component';
@@ -18,6 +17,7 @@ import {
   ExtraToppingDto,
   PizzaDto,
 } from '../../api/core/services/service-proxies';
+import { MatChipsModule } from '@angular/material/chips';
 
 interface ExtraTopping {
   id: string;
@@ -42,6 +42,7 @@ interface ToppingsForm {
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatChipsModule,
     MatDividerModule,
     ReactiveFormsModule,
   ],

@@ -2,9 +2,8 @@
   padding: 8px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  //   max-width: 450px !important;
-  //   width: 100% !important;
+  gap: 20px;
+  background-color: #f4f5f5;
 
   .mat-mdc-card-title {
     font-size: 22px;
@@ -14,7 +13,7 @@
   .mat-mdc-card-subtitle {
     font-size: 16px;
     color: #475569;
-    margin-top: 6px;
+    margin-top: 10px;
   }
 
   .mat-mdc-card-content {
@@ -23,23 +22,28 @@
       margin: 0;
     }
 
+    h5 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
     .description-text {
       font-size: 18px;
       color: #475569;
       margin: 0;
-      margin-top: 4px;
+      margin-top: 8px;
+      margin-bottom: 16px;
     }
 
-    .custom-chip-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(max-content, 1fr));
-      gap: 8px;
-      align-items: center;
-      margin: 12px 0;
+    .base-price {
+      font-size: 18px;
+      font-weight: 600;
+    }
 
-      app-custom-chip {
-        display: block; // Forciert Block-Layout
-      }
+    .form-container {
+      margin-top: 26px;
     }
   }
 }
@@ -59,6 +63,7 @@
     justify-content: space-between;
     align-items: center;
     color: #475569;
+    background-color: #f8fafc;
   }
 }
 
